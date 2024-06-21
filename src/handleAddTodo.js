@@ -14,6 +14,9 @@ export default function handleAddTodo(e) {
   const newTodoElement = createNewTodo(newTodo);
   todos.append(newTodoElement);
 
+  const input = document.querySelector("#add-todo-input");
+  input.value = "";
+
   function createNewTodo(todo) {
     const todoItem = document.createElement("li");
     todoItem.classList.add(todo.priority);

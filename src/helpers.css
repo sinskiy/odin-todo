@@ -1,0 +1,9 @@
+.hidden-input--parent {
+  position: relative;
+}
+
+.hidden-input--parent input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}

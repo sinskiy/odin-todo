@@ -13,8 +13,10 @@ body {
 }
 ul,
 ol {
-  list-style-image: transparent;
   padding: 0;
+}
+::marker {
+  font-size: 0;
 }
 img,
 picture,

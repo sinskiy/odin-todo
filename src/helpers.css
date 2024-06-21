@@ -2,8 +2,12 @@
   position: relative;
 }
 
-.hidden-input--parent input {
+.hidden-input--parent input:is([type="checkbox"], [type="radio"]) {
   position: absolute;
   inset: 0;
   opacity: 0;
+}
+
+[aria-label="required"] {
+  color: #ffb4ab;
 }

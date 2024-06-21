@@ -7,18 +7,47 @@
   </head>
   <body>
     <main>
-      <ul class="projects">
-        <li class="hidden-input--parent">
-          <input type="radio" name="projects" id="default" />
-          <label for="default">Default</label>
+      <section class="projects">
+        <ul class="projects-list">
+          <li class="hidden-input--parent">
+            <input type="radio" name="projects" id="default" checked />
+            <label for="default">Default</label>
+          </li>
+          <li class="hidden-input--parent">
+            <input type="radio" name="projects" id="code" />
+            <label for="code">Code</label>
+          </li>
+          <li class="hidden-input--parent">
+            <input type="radio" name="projects" id="life" />
+            <label for="life">Life</label>
+          </li>
+        </ul>
+        <button class="styled-button">Add project</button>
+      </section>
+      <form action="" method="get" class="add-todo">
+        <div class="form-column">
+          <label for="add-todo-input"
+            >Add todo<span aria-label="required">*</span></label
+          >
+          <input
+            placeholder="Buy groceries"
+            required
+            class="styled-input"
+            type="text"
+            name="add-todo-input"
+            id="add-todo-input"
+          />
+        </div>
+        <button class="styled-button">Add</button>
+      </form>
+      <ul class="todos">
+        <li>
+          <input type="checkbox" name="todo-1" id="todo-1" />
+          <label for="todo-1">Finish Todo List project</label>
         </li>
-        <li class="hidden-input--parent">
-          <input type="radio" name="projects" id="code" />
-          <label for="code">Code</label>
-        </li>
-        <li class="hidden-input--parent">
-          <input type="radio" name="projects" id="life" />
-          <label for="life">Life</label>
+        <li>
+          <input type="checkbox" name="todo-2" id="todo-2" />
+          <label for="todo-2">Dive into Javascript</label>
         </li>
       </ul>
     </main>

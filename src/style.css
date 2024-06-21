@@ -1,4 +1,6 @@
 :root {
+  color-scheme: dark;
+
   --background: #15130b;
   --surface: #222017;
   --surface-high: #2d2a21;
@@ -6,24 +8,41 @@
   --text: #e8e2d4;
   --text-secondary: #cdc6b4;
   --primary: #dbc66e;
+  accent-color: var(--primary);
   --on-primary: #3a3000;
 
   --rounded-small: 1rem;
-  --rounded-card: 2rem;
-  --rouneded-large: 9999px;
+  --rounded-card: 1.5rem;
+  --rounded-large: 9999px;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--text);
-
   display: grid;
   place-items: center;
+
+  background-color: var(--background);
+  color: var(--text);
+}
+
+main {
+  min-width: 50%;
+
+  display: grid;
+  gap: 3rem;
 }
 
 .projects {
   display: flex;
   gap: 1rem;
+}
+.projects-list {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+}
+.projects li {
+  flex: 1;
+  text-align: center;
 }
 .projects label {
   display: block;
@@ -36,4 +55,75 @@ body {
 .projects :checked ~ label {
   background-color: var(--primary);
   color: var(--on-primary);
+}
+
+.todos {
+  display: grid;
+  gap: 1rem;
+}
+.todos li {
+  padding: 2rem 3rem;
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+
+  background-color: var(--surface);
+  border-radius: var(--rounded-card);
+}
+.todos label {
+  font-size: 1.25rem;
+}
+
+.add-todo {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-flow: column;
+  align-items: end;
+  gap: 0.5rem;
+}
+.add-todo button {
+  /* input's height so that it looks better */
+  height: 3.5rem;
+}
+
+.styled-input {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--outline);
+
+  background-color: var(--surface);
+  color: var(--text-secondary);
+  border-radius: var(--rounded-small);
+  outline: none;
+
+  font-size: 1.5rem;
+}
+.styled-input:focus {
+  border-color: var(--primary);
+}
+
+.form-column {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.styled-button {
+  height: fit-content;
+  padding: 0.75rem 4rem;
+  border: none;
+
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border-radius: var(--rounded-large);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  transition: filter 150ms, transform 100ms;
+}
+.styled-button:hover {
+  filter: brightness(1.25);
+}
+.styled-button:active {
+  transform: scale(0.95);
 }

@@ -26,6 +26,7 @@ body {
 
 main {
   min-width: 50%;
+  max-width: 32rem;
 
   display: grid;
   gap: 3rem;
@@ -70,6 +71,9 @@ main {
 
   background-color: var(--surface);
   border-radius: var(--rounded-card);
+}
+.todos .priority-1 {
+  background-color: var(--surface-high);
 }
 .todos label {
   font-size: 1.25rem;
@@ -118,12 +122,12 @@ main {
 
   font-size: 0.875rem;
   font-weight: 500;
+}
 
-  transition: filter 150ms, transform 100ms;
-}
-.styled-button:hover {
-  filter: brightness(1.25);
-}
-.styled-button:active {
-  transform: scale(0.95);
+.icon-button {
+  height: 10rem;
+  width: 10rem;
+  border: none;
+  background-color: transparent;
+  color: var(--text);
 }

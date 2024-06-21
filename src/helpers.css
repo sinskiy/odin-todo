@@ -4,7 +4,6 @@
 
 .hidden-input--parent input:is([type="checkbox"], [type="radio"]) {
   position: absolute;
-  inset: 0;
   opacity: 0;
 }
 

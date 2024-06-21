@@ -2,7 +2,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
 module.exports = {
+  mode: "production",
   entry: "./src/index.js",
+  devServer: {
+    static: "./dist",
+    watchFiles: ["./src/index.html"],
+  },
   plugins: [new HtmlWebpackPlugin({ template: "./src/index.html" })],
   output: {
     filename: "main.js",

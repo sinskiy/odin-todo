@@ -2,6 +2,7 @@ import { getCurrentProject } from "./projectsDOMHelpers";
 import Todo from "./todos";
 import Trash from "./trash.svg";
 import Calendar from "./calendar.svg";
+import handleDeleteTodo from "./handleDeleteTodo";
 
 const todos = document.querySelector(".todos");
 
@@ -19,7 +20,7 @@ export default function handleAddTodo(e) {
 
   function createNewTodo(todo) {
     const todoItem = document.createElement("li");
-    todoItem.classList.add(todo.priority);
+    todoItem.classList.add(`priority-${todo.priority}`);
 
     const checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
@@ -53,15 +54,16 @@ export default function handleAddTodo(e) {
       const actions = document.createElement("div");
       actions.classList.add("actions");
 
-      const deleteButton = createAction(Trash, "trash icon");
+      const deleteButton = createAction(Trash, "trash icon", handleDeleteTodo);
       const calendarButton = createAction(Calendar, "calendar icon");
 
       actions.append(deleteButton, calendarButton);
       return actions;
 
-      function createAction(src, alt) {
+      function createAction(src, alt, clickEventHandler) {
         const button = document.createElement("button");
         button.classList.add("icon-button");
+        button.addEventListener("click", clickEventHandler);
 
         const img = new Image();
         img.src = src;

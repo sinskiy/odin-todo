@@ -58,6 +58,7 @@ export default function handleAddTodo(e) {
       const calendar = document.createElement("input");
       calendar.setAttribute("type", "date");
       calendar.classList.add("styled-input");
+      calendar.addEventListener("change", handleCalendarChange);
 
       actions.append(deleteButton, calendar);
       return actions;
@@ -73,6 +74,14 @@ export default function handleAddTodo(e) {
 
         button.appendChild(img);
         return button;
+      }
+
+      function handleCalendarChange(e) {
+        const dateTime = e.target.value;
+        newTodo.dateTime = dateTime;
+        details.children[2].innerText = new Date(
+          newTodo.dateTime
+        ).toDateString();
       }
     }
   }

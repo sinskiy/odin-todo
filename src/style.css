@@ -140,7 +140,7 @@ main {
   justify-content: center;
   align-items: center;
 
-  background-color: var(--surface-high);
+  background-color: var(--surface);
   color: var(--text);
   border-radius: var(--rounded-large);
 }

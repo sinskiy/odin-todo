@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 body {
-  min-height: 100vh;
   scroll-behavior: smooth;
   line-height: 1.5;
 }
@@ -21,9 +20,6 @@ button,
 textarea,
 select {
   font: inherit;
-}
-input[type="checkbox"] {
-  min-width: 2rem;
 }
 button {
   transition: filter 150ms, transform 100ms;

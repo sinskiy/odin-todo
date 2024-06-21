@@ -17,8 +17,10 @@
 }
 
 body {
+  margin-top: 6rem;
+
   display: grid;
-  place-items: center;
+  justify-items: center;
 
   background-color: var(--background);
   color: var(--text);
@@ -66,17 +68,22 @@ main {
   padding: 2rem 3rem;
 
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1rem;
+  grid-template-columns: auto 1fr auto;
+  gap: 2rem;
+  align-items: center;
 
   background-color: var(--surface);
   border-radius: var(--rounded-card);
 }
+.todos input[type="checkbox"] {
+  width: 2rem;
+  height: 100%;
+}
 .todos .priority-1 {
   background-color: var(--surface-high);
 }
-.todos label {
-  font-size: 1.25rem;
+.todos .actions {
+  display: flex;
 }
 
 .add-todo {
@@ -125,9 +132,15 @@ main {
 }
 
 .icon-button {
-  height: 10rem;
-  width: 10rem;
+  height: 3rem;
+  width: 3rem;
   border: none;
-  background-color: transparent;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--surface-high);
   color: var(--text);
+  border-radius: var(--rounded-large);
 }

@@ -5,14 +5,16 @@
 }
 * {
   margin: 0;
-  padding: 0;
 }
 body {
+  scroll-behavior: smooth;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
-ul {
+ul,
+ol {
   list-style: none;
+  padding: 0;
 }
 img,
 picture,

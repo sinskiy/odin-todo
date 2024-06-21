@@ -55,9 +55,11 @@ export default function handleAddTodo(e) {
       actions.classList.add("actions");
 
       const deleteButton = createAction(Trash, "trash icon", handleDeleteTodo);
-      const calendarButton = createAction(Calendar, "calendar icon");
+      const calendar = document.createElement("input");
+      calendar.setAttribute("type", "date");
+      calendar.classList.add("styled-input");
 
-      actions.append(deleteButton, calendarButton);
+      actions.append(deleteButton, calendar);
       return actions;
 
       function createAction(src, alt, clickEventHandler) {

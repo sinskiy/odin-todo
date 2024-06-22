@@ -17,7 +17,7 @@ export class Project {
     this.todos.push(todo);
   }
   deleteTodo(id) {
-    this.todos.filter((todo) => todo.id !== id);
+    this.todos = this.todos.filter((todo) => todo.id !== id);
   }
   initializeProject() {
     this.id = getLargestID(projects) + 1;

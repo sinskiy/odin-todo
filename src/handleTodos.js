@@ -85,7 +85,8 @@ export function createNewTodo(todo) {
 
 function handleDeleteTodo(todo) {
   const currentProject = getCurrentProject();
-  currentProject.deleteTodo(todo.dataset.id);
+  const todoID = Number(todo.dataset.id);
+  currentProject.deleteTodo(todoID);
   todo.remove();
 }
 

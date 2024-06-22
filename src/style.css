@@ -60,11 +60,11 @@ main {
   color: var(--on-primary);
 }
 
-.todos {
+.todos-list {
   display: grid;
   gap: 1rem;
 }
-.todos li {
+.todos-list li {
   padding: 2rem 3rem;
 
   display: grid;
@@ -75,14 +75,14 @@ main {
   background-color: var(--surface);
   border-radius: var(--rounded-card);
 }
-.todos input[type="checkbox"] {
+.todos-list input[type="checkbox"] {
   width: 2rem;
   height: 100%;
 }
-.todos .priority-1 {
+.todos-list .priority-1 {
   background-color: var(--surface-high);
 }
-.todos .actions {
+.todos-list .actions {
   display: flex;
   gap: 1rem;
   justify-content: center;

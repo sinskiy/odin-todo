@@ -1,28 +1,22 @@
-import { getCurrentProject } from "./projectsDOMHelpers";
-import Todo from "./todos";
+import Todo, { todosList } from "./todos";
 import Trash from "./trash.svg";
-import handleDeleteTodo from "./handleDeleteTodo";
+import { getCurrentProject, projects } from "./projects";
 
-export const todos = document.querySelector(".todos");
-
-export default function handleAddTodo(e) {
+export function handleAddTodo(e) {
   e.preventDefault();
 
   const newTodoTitle = new FormData(e.target).get("add-todo-input");
   const currentProject = getCurrentProject();
-  const newTodo = new Todo(newTodoTitle, currentProject.innerText);
-  newTodo.saveTodo();
-  const newTodoElement = createNewTodo(newTodo);
-  todos.append(newTodoElement);
+  const newTodo = new Todo(newTodoTitle);
+  currentProject.addTodo(newTodo);
+  createNewTodo(newTodo);
 
-  const input = document.querySelector("#add-todo-input");
-  input.value = "";
+  clearNewTodoInput();
 }
 
 export function createNewTodo(todo) {
   const todoItem = document.createElement("li");
-  todoItem.dataset.originalTitle = todo.originalTitle;
-  todoItem.classList.add(`priority-${todo.priority}`);
+  todoItem.dataset.id = todo.id;
 
   const checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
@@ -34,21 +28,15 @@ export function createNewTodo(todo) {
   const actions = createActions();
 
   todoItem.append(checkbox, details, actions);
-  return todoItem;
+  todosList.append(todoItem);
 
   function createDetails() {
     const hgroup = document.createElement("hgroup");
 
     const title = document.createElement("h2");
-    title.contentEditable = "true";
-    title.addEventListener("input", (e) => todo.setTitle(e.target.innerText));
     title.textContent = todo.title;
 
     const description = document.createElement("p");
-    description.contentEditable = "true";
-    description.addEventListener("input", (e) =>
-      todo.setDescription(e.target.innerText)
-    );
     description.textContent = todo.description;
 
     const time = document.createElement("time");
@@ -62,12 +50,14 @@ export function createNewTodo(todo) {
     const actions = document.createElement("div");
     actions.classList.add("actions");
 
-    const deleteButton = createAction(Trash, "trash icon", handleDeleteTodo);
+    const deleteButton = createAction(Trash, "trash icon", () =>
+      handleDeleteTodo(todoItem)
+    );
     const calendar = document.createElement("input");
     calendar.setAttribute("type", "date");
     calendar.value = todo.dateTime;
     calendar.classList.add("styled-input");
-    calendar.addEventListener("change", handleCalendarChange);
+    // calendar.addEventListener("change", handleCalendarChange);
 
     actions.append(deleteButton, calendar);
     return actions;
@@ -91,4 +81,15 @@ export function createNewTodo(todo) {
       details.children[2].innerText = new Date(todo.dateTime).toDateString();
     }
   }
+}
+
+function handleDeleteTodo(todo) {
+  const currentProject = getCurrentProject();
+  currentProject.deleteTodo(todo.dataset.id);
+  todo.remove();
+}
+
+function clearNewTodoInput() {
+  const input = document.querySelector("#add-todo-input");
+  input.value = "";
 }

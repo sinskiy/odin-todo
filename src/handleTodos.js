@@ -39,10 +39,7 @@ export function createNewTodo(todo) {
     const description = document.createElement("p");
     description.textContent = todo.description;
 
-    const time = document.createElement("time");
-    time.textContent = todo.dateTime;
-
-    hgroup.append(title, description, time);
+    hgroup.append(title, description);
     return hgroup;
   }
 

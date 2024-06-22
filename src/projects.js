@@ -1,4 +1,4 @@
-import { handleAddProject } from "./handleProjects";
+import { createNewProject, handleAddProject } from "./handleProjects";
 import { getLargestID } from "./helpers";
 
 export const projects = [];
@@ -8,7 +8,6 @@ export let currentProjectID;
 export class Project {
   constructor(title) {
     this.title = title;
-    this.current = true;
     this.todos = [];
     this.initializeProject();
   }
@@ -23,7 +22,7 @@ export class Project {
     this.id = getLargestID(projects) + 1;
     currentProjectID = this.id;
     projects.push(this);
-    handleAddProject(this);
+    createNewProject(this);
   }
 }
 

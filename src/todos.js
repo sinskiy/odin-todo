@@ -1,5 +1,3 @@
-export const todosList = document.querySelector(".todos-list");
-
 export default class Todo {
   constructor(title) {
     this.title = title;

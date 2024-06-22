@@ -147,3 +147,18 @@ main {
   color: var(--text);
   border-radius: var(--rounded-large);
 }
+
+dialog[open] {
+  border: none;
+  padding: 2rem;
+  margin: auto;
+
+  display: grid;
+
+  border-radius: var(--rounded-card);
+}
+
+dialog form {
+  display: grid;
+  gap: 0.5rem;
+}

@@ -1,6 +1,8 @@
-import Todo, { todosList } from "./todos";
+import Todo from "./todos";
 import Trash from "./trash.svg";
-import { getCurrentProject, projects } from "./projects";
+import { getCurrentProject } from "./projects";
+
+export const todosList = document.querySelector(".todos-list");
 
 export function handleAddTodo(e) {
   e.preventDefault();

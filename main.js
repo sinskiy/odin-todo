@@ -943,6 +943,7 @@ module.exports = styleTagTransform;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   closeDialog: () => (/* binding */ closeDialog),
 /* harmony export */   createDialog: () => (/* binding */ createDialog),
 /* harmony export */   createDialogAction: () => (/* binding */ createDialogAction),
 /* harmony export */   createDialogBody: () => (/* binding */ createDialogBody),
@@ -996,6 +997,10 @@ function createDialogAction(title, clickEventHandler) {
   return button;
 }
 
+function closeDialog(dialog) {
+  dialog.close();
+}
+
 
 /***/ }),
 
@@ -1025,6 +1030,7 @@ function handleFirstLoad() {
       project.todos.forEach((todo) => {
         const newTodo = new _todos__WEBPACK_IMPORTED_MODULE_2__["default"](todo.title);
         newTodo.completed = todo.completed;
+        newTodo.date = todo.date;
         newProject.addTodo(newTodo);
       });
       (0,_handleProjects__WEBPACK_IMPORTED_MODULE_0__.changeProject)(newProject);
@@ -1068,7 +1074,8 @@ function handleCreateDialog() {
   const actions = document.createElement("div");
   actions.classList.add("dialog-actions");
   const saveButton = (0,_dialogs__WEBPACK_IMPORTED_MODULE_2__.createDialogAction)("Save", addProject);
-  const closeButton = (0,_dialogs__WEBPACK_IMPORTED_MODULE_2__.createDialogAction)("Close", () => dialog.close());
+  const closeButton = (0,_dialogs__WEBPACK_IMPORTED_MODULE_2__.createDialogAction)("Close", (0,_dialogs__WEBPACK_IMPORTED_MODULE_2__.closeDialog)(dialog));
+  closeButton.type = "button";
   actions.append(saveButton, closeButton);
 
   const dialogBody = (0,_dialogs__WEBPACK_IMPORTED_MODULE_2__.createDialogBody)(formColumn, actions);
@@ -1077,9 +1084,8 @@ function handleCreateDialog() {
   dialog.showModal();
 
   function addProject() {
-    dialog.close();
-
     const formInput = formColumn.querySelector(`#${formInputID}`);
+    if (!formInput.value) return;
 
     const newProject = new _projects__WEBPACK_IMPORTED_MODULE_1__.Project(formInput.value);
     changeProject(newProject);
@@ -1137,7 +1143,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _todos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./todos */ "./src/todos.js");
 /* harmony import */ var _trash_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./trash.svg */ "./src/trash.svg");
-/* harmony import */ var _projects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./projects */ "./src/projects.js");
+/* harmony import */ var _edit_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit.svg */ "./src/edit.svg");
+/* harmony import */ var _projects__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./projects */ "./src/projects.js");
+/* harmony import */ var _dialogs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dialogs */ "./src/dialogs.js");
+
+
 
 
 
@@ -1148,7 +1158,7 @@ function handleAddTodo(e) {
   e.preventDefault();
 
   const newTodoTitle = new FormData(e.target).get("add-todo-input");
-  const currentProject = (0,_projects__WEBPACK_IMPORTED_MODULE_2__.getCurrentProject)();
+  const currentProject = (0,_projects__WEBPACK_IMPORTED_MODULE_3__.getCurrentProject)();
   const newTodo = new _todos__WEBPACK_IMPORTED_MODULE_0__["default"](newTodoTitle);
   currentProject.addTodo(newTodo);
   createNewTodo(newTodo);
@@ -1164,6 +1174,8 @@ function createNewTodo(todo) {
   checkbox.checked = todo.completed;
   checkbox.addEventListener("change", () => todo.toggleTodoCompleteness());
 
+  const title = document.createElement("h2");
+  const date = document.createElement("time");
   const details = createDetails();
 
   const actions = createActions();
@@ -1171,19 +1183,14 @@ function createNewTodo(todo) {
   todoItem.append(checkbox, details, actions);
   todosList.append(todoItem);
 
-  const date = document.createElement("time");
   function createDetails() {
     const hgroup = document.createElement("hgroup");
 
-    const title = document.createElement("h2");
     title.textContent = todo.title;
 
-    const description = document.createElement("p");
-    description.textContent = todo.description;
+    date.textContent = new Date(todo.date).toDateString();
 
-    date.textContent = todo.date;
-
-    hgroup.append(title, description);
+    hgroup.append(title, date);
     return hgroup;
   }
 
@@ -1194,13 +1201,15 @@ function createNewTodo(todo) {
     const deleteButton = createAction(_trash_svg__WEBPACK_IMPORTED_MODULE_1__, "trash icon", () =>
       handleDeleteTodo(todoItem)
     );
+    const editDialog = createEditDialog();
+    const editButton = createAction(_edit_svg__WEBPACK_IMPORTED_MODULE_2__, "edit icon", handleOpenEditDialog);
     const calendar = document.createElement("input");
     calendar.setAttribute("type", "date");
     calendar.value = todo.date;
     calendar.classList.add("styled-input");
     calendar.addEventListener("change", handleCalendarChange);
 
-    actions.append(deleteButton, calendar);
+    actions.append(deleteButton, editButton, calendar);
     return actions;
 
     function createAction(src, alt, clickEventHandler) {
@@ -1216,16 +1225,68 @@ function createNewTodo(todo) {
       return button;
     }
 
+    function createEditDialog() {
+      const inputs = document.createElement("div");
+      const titleFormColumn = (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.createFormColumn)(
+        "Title",
+        "edit-title",
+        "Buy groceries"
+      );
+      const descriptionFormColumn = (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.createFormColumn)(
+        "Description",
+        "edit-description",
+        "This is a hard task"
+      );
+      inputs.append(titleFormColumn, descriptionFormColumn);
+
+      const actions = document.createElement("div");
+      actions.classList.add("dialog-actions");
+      const saveButton = (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.createDialogAction)("Save");
+      const closeButton = (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.createDialogAction)("Close", () =>
+        (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.closeDialog)(editDialog)
+      );
+      closeButton.type = "button";
+      actions.append(saveButton, closeButton);
+
+      const dialogBody = (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.createDialogBody)(
+        inputs,
+        actions,
+        handleSubmitEditDialog
+      );
+
+      const dialog = (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.createDialog)("Edit todo and view details", dialogBody);
+
+      return dialog;
+
+      function handleSubmitEditDialog() {
+        const formData = new FormData(dialogBody);
+        const [newTitle, newDescription] = formData.values();
+        todo.setTitle(newTitle);
+        todo.setDescription(newDescription);
+        title.textContent = newTitle;
+      }
+    }
+
+    function handleOpenEditDialog() {
+      editDialog.showModal();
+
+      const title = editDialog.querySelector("#edit-title");
+      title.value = todo.title;
+
+      const description = editDialog.querySelector("#edit-description");
+      description.value = todo.description ?? "";
+    }
+
     function handleCalendarChange(e) {
       const newDate = e.target.value;
-      todo.setDateTime(newDate);
+      todo.setDate(newDate);
       date.innerText = new Date(todo.date).toDateString();
     }
   }
 }
 
 function handleDeleteTodo(todo) {
-  const currentProject = (0,_projects__WEBPACK_IMPORTED_MODULE_2__.getCurrentProject)();
+  const currentProject = (0,_projects__WEBPACK_IMPORTED_MODULE_3__.getCurrentProject)();
   const todoID = Number(todo.dataset.id);
   currentProject.deleteTodo(todoID);
   todo.remove();
@@ -1346,13 +1407,38 @@ class Todo {
     this.title = title;
     this.completed = false;
   }
+  setTitle(title) {
+    this.title = title;
+
+    (0,_projects__WEBPACK_IMPORTED_MODULE_0__.saveProjects)();
+  }
   toggleTodoCompleteness() {
     this.completed = !this.completed;
 
     (0,_projects__WEBPACK_IMPORTED_MODULE_0__.saveProjects)();
   }
+  setDescription(description) {
+    this.description = description;
+
+    (0,_projects__WEBPACK_IMPORTED_MODULE_0__.saveProjects)();
+  }
+  setDate(date) {
+    this.date = date;
+
+    (0,_projects__WEBPACK_IMPORTED_MODULE_0__.saveProjects)();
+  }
 }
 
+
+/***/ }),
+
+/***/ "./src/edit.svg":
+/*!**********************!*\
+  !*** ./src/edit.svg ***!
+  \**********************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "04391855b3a81ac66b5b.svg";
 
 /***/ }),
 

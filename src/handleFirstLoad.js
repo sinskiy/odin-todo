@@ -13,6 +13,7 @@ export default function handleFirstLoad() {
         newTodo.completed = todo.completed;
         newTodo.description = todo.description;
         newTodo.date = todo.date;
+        newTodo.priority = todo.priority;
         newProject.addTodo(newTodo);
       });
       changeProject(newProject);

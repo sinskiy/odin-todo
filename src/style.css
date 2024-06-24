@@ -4,6 +4,7 @@
   --background: #15130b;
   --surface: #222017;
   --surface-high: #2d2a21;
+  --surface-highest: #38352b;
   --outline: #969080;
   --text: #e8e2d4;
   --text-secondary: #cdc6b4;
@@ -79,8 +80,11 @@ main {
   width: 2rem;
   height: 100%;
 }
-.todos-list .priority-1 {
+.todos-list [data-priority="2"] {
   background-color: var(--surface-high);
+}
+.todos-list [data-priority="1"] {
+  background-color: var(--surface-highest);
 }
 .todos-list .actions {
   display: flex;

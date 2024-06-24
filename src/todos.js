@@ -4,6 +4,7 @@ export default class Todo {
   constructor(title) {
     this.title = title;
     this.completed = false;
+    this.priority = 3;
   }
   setTitle(title) {
     this.title = title;
@@ -22,6 +23,11 @@ export default class Todo {
   }
   setDate(date) {
     this.date = date;
+
+    saveProjects();
+  }
+  setPriority(priority) {
+    this.priority = priority;
 
     saveProjects();
   }

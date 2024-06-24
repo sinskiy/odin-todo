@@ -26,6 +26,7 @@ export function handleAddTodo(e) {
 export function createNewTodo(todo) {
   const todoItem = document.createElement("li");
   todoItem.dataset.id = todo.id;
+  todoItem.dataset.priority = todo.priority;
 
   const checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
@@ -66,8 +67,22 @@ export function createNewTodo(todo) {
     calendar.value = todo.date;
     calendar.classList.add("styled-input");
     calendar.addEventListener("change", handleCalendarChange);
+    const priorities = document.createElement("select");
+    priorities.classList.add("styled-input");
+    priorities.addEventListener("change", handlePriorityChange);
+    priorities.style.fontSize = "1rem";
+    const prioritiesArr = [];
+    for (let i = 1; i <= 3; i++) {
+      const priority = document.createElement("option");
+      priority.value = i;
+      priority.innerText = `Priority ${i}`;
 
-    actions.append(deleteButton, editButton, calendar);
+      prioritiesArr.push(priority);
+    }
+    priorities.append(...prioritiesArr);
+    priorities.selectedIndex = todo.priority - 1;
+
+    actions.append(deleteButton, editButton, calendar, priorities);
     return actions;
 
     function createAction(src, alt, clickEventHandler) {
@@ -141,6 +156,12 @@ export function createNewTodo(todo) {
       const newDate = e.target.value;
       todo.setDate(newDate);
       date.innerText = todo.date ? new Date(todo.date).toDateString() : "";
+    }
+
+    function handlePriorityChange(e) {
+      const newPriority = e.target.value;
+      todo.setPriority(newPriority);
+      todoItem.dataset.priority = newPriority;
     }
   }
 }

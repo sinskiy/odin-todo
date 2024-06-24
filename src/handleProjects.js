@@ -1,5 +1,12 @@
 import { createNewTodo } from "./handleTodos";
-import { currentProjectID } from "./projects";
+import {
+  Project,
+  currentProjectID,
+  getCurrentProject,
+  getProjectByID,
+  projects,
+  setCurrentProjectID,
+} from "./projects";
 import { todosList } from "./handleTodos";
 import {
   createDialog,
@@ -13,15 +20,29 @@ const addProjectDialogTrigger = document.querySelector(".add-project");
 addProjectDialogTrigger.addEventListener("click", handleCreateDialog);
 
 export function handleCreateDialog() {
-  const formColumn = createFormColumn("New project title", "add-project-title");
+  const formInputID = "add-project-title";
+  const formColumn = createFormColumn("New project title", formInputID, "Life");
+
   const actions = document.createElement("div");
-  const saveButton = createDialogAction("Save");
+  actions.classList.add("dialog-actions");
+  const saveButton = createDialogAction("Save", addProject);
   const closeButton = createDialogAction("Close");
   actions.append(saveButton, closeButton);
+
   const dialogBody = createDialogBody(formColumn, actions);
   const dialog = createDialog("Add new project", dialogBody);
 
   dialog.showModal();
+
+  function addProject() {
+    dialog.close();
+
+    const formInput = formColumn.querySelector(`#${formInputID}`);
+    console.log(formInput);
+
+    const newProject = new Project(formInput.value);
+    changeProject(newProject);
+  }
 }
 
 export function createNewProject(project) {
@@ -33,6 +54,7 @@ export function createNewProject(project) {
   newProjectRadio.id = project.title;
   newProjectRadio.name = "projects";
   newProjectRadio.checked = project.id === currentProjectID;
+  newProjectRadio.addEventListener("change", handleProjectChange);
 
   const newProjectTitle = document.createElement("label");
   newProjectTitle.setAttribute("for", project.title);
@@ -41,11 +63,18 @@ export function createNewProject(project) {
   newProject.append(newProjectRadio, newProjectTitle);
 
   projectsList.append(newProject);
+
+  function handleProjectChange() {
+    changeProject(project);
+  }
 }
 
 function changeProject(project) {
-  currentProjectID = project.id;
+  setCurrentProjectID(project.id);
 
   todosList.innerHTML = "";
-  project.todos.map((todo) => createNewTodo(todo));
+
+  for (const todo of project.todos) {
+    createNewTodo(todo);
+  }
 }

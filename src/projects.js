@@ -1,9 +1,10 @@
-import { createNewProject, handleAddProject } from "./handleProjects";
+import { createNewProject } from "./handleProjects";
 import { getLargestID } from "./helpers";
 
 export const projects = [];
 
 export let currentProjectID;
+export const setCurrentProjectID = (newID) => (currentProjectID = newID);
 
 export class Project {
   constructor(title) {
@@ -27,5 +28,9 @@ export class Project {
 }
 
 export function getCurrentProject() {
-  return projects.find((project) => project.id === currentProjectID);
+  return getProjectByID(currentProjectID);
+}
+
+export function getProjectByID(id) {
+  return projects.find((project) => project.id === id);
 }

@@ -15,7 +15,6 @@ export function handleAddTodo(e) {
 
   clearNewTodoInput();
 }
-
 export function createNewTodo(todo) {
   const todoItem = document.createElement("li");
   todoItem.dataset.id = todo.id;

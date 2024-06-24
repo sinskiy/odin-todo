@@ -33,7 +33,7 @@ function createAddProjectDialog() {
   actions.classList.add("dialog-actions");
   const saveButton = createDialogAction("Save", addProject);
   const closeButton = createDialogAction("Close", () =>
-    closeDialog(addProjectDialog)
+    actions.parentElement.parentElement.close()
   );
   closeButton.type = "button";
   actions.append(saveButton, closeButton);
@@ -49,6 +49,8 @@ function addProject() {
 
   const newProject = new Project(formInput.value);
   changeProject(newProject);
+
+  addProjectDialog.close();
 }
 
 export function createNewProject(project) {

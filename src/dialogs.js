@@ -45,3 +45,7 @@ export function createDialogAction(title, clickEventHandler) {
   button.addEventListener("click", clickEventHandler);
   return button;
 }
+
+export function closeDialog(dialog) {
+  dialog.close();
+}

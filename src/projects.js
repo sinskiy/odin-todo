@@ -35,7 +35,6 @@ export class Project {
 }
 
 export function saveProjects() {
-  console.log(projects[0]);
   localStorage.setItem("projects", JSON.stringify(projects));
 }
 

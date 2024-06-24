@@ -1,6 +1,14 @@
 import Todo from "./todos";
 import Trash from "./trash.svg";
+import Edit from "./edit.svg";
 import { getCurrentProject } from "./projects";
+import {
+  closeDialog,
+  createDialog,
+  createDialogAction,
+  createDialogBody,
+  createFormColumn,
+} from "./dialogs";
 
 export const todosList = document.querySelector(".todos-list");
 
@@ -24,6 +32,7 @@ export function createNewTodo(todo) {
   checkbox.checked = todo.completed;
   checkbox.addEventListener("change", () => todo.toggleTodoCompleteness());
 
+  const title = document.createElement("h2");
   const date = document.createElement("time");
   const details = createDetails();
 
@@ -35,7 +44,6 @@ export function createNewTodo(todo) {
   function createDetails() {
     const hgroup = document.createElement("hgroup");
 
-    const title = document.createElement("h2");
     title.textContent = todo.title;
 
     const description = document.createElement("p");
@@ -54,13 +62,15 @@ export function createNewTodo(todo) {
     const deleteButton = createAction(Trash, "trash icon", () =>
       handleDeleteTodo(todoItem)
     );
+    const editDialog = createEditDialog();
+    const editButton = createAction(Edit, "edit icon", handleOpenEditDialog);
     const calendar = document.createElement("input");
     calendar.setAttribute("type", "date");
     calendar.value = todo.date;
     calendar.classList.add("styled-input");
     calendar.addEventListener("change", handleCalendarChange);
 
-    actions.append(deleteButton, calendar);
+    actions.append(deleteButton, editButton, calendar);
     return actions;
 
     function createAction(src, alt, clickEventHandler) {
@@ -74,6 +84,48 @@ export function createNewTodo(todo) {
 
       button.appendChild(img);
       return button;
+    }
+
+    function createEditDialog() {
+      const formColumn = createFormColumn(
+        "Title",
+        "edit-title",
+        "Buy groceries"
+      );
+      formColumn.classList.add("form-column");
+
+      const actions = document.createElement("div");
+      actions.classList.add("dialog-actions");
+      const saveButton = createDialogAction("Save");
+      const closeButton = createDialogAction("Close", () =>
+        closeDialog(editDialog)
+      );
+      closeButton.type = "button";
+      actions.append(saveButton, closeButton);
+
+      const dialogBody = createDialogBody(
+        formColumn,
+        actions,
+        handleSubmitEditDialog
+      );
+
+      const dialog = createDialog("Edit todo and view details", dialogBody);
+
+      return dialog;
+
+      function handleSubmitEditDialog() {
+        const formData = new FormData(dialogBody);
+        const [newTitle] = formData.values();
+        todo.setTitle(newTitle);
+        title.textContent = newTitle;
+      }
+    }
+
+    function handleOpenEditDialog() {
+      editDialog.showModal();
+
+      const title = editDialog.querySelector("#edit-title");
+      title.value = todo.title;
     }
 
     function handleCalendarChange(e) {

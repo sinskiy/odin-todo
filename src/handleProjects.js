@@ -9,6 +9,7 @@ import {
 } from "./projects";
 import { todosList } from "./handleTodos";
 import {
+  closeDialog,
   createDialog,
   createDialogAction,
   createDialogBody,
@@ -26,7 +27,8 @@ export function handleCreateDialog() {
   const actions = document.createElement("div");
   actions.classList.add("dialog-actions");
   const saveButton = createDialogAction("Save", addProject);
-  const closeButton = createDialogAction("Close", () => dialog.close());
+  const closeButton = createDialogAction("Close", closeDialog(dialog));
+  closeButton.type = "button";
   actions.append(saveButton, closeButton);
 
   const dialogBody = createDialogBody(formColumn, actions);
@@ -35,9 +37,8 @@ export function handleCreateDialog() {
   dialog.showModal();
 
   function addProject() {
-    dialog.close();
-
     const formInput = formColumn.querySelector(`#${formInputID}`);
+    if (!formInput.value) return;
 
     const newProject = new Project(formInput.value);
     changeProject(newProject);

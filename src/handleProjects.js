@@ -17,32 +17,38 @@ import {
 } from "./dialogs";
 
 const projectsList = document.querySelector(".projects-list");
+
+const formInputID = "add-project-title";
+const formColumn = createFormColumn("New project title", formInputID, "Life");
+
+const addProjectDialog = createAddProjectDialog();
+
 const addProjectDialogTrigger = document.querySelector(".add-project");
-addProjectDialogTrigger.addEventListener("click", handleCreateDialog);
+addProjectDialogTrigger.addEventListener("click", () =>
+  addProjectDialog.showModal()
+);
 
-export function handleCreateDialog() {
-  const formInputID = "add-project-title";
-  const formColumn = createFormColumn("New project title", formInputID, "Life");
-
+function createAddProjectDialog() {
   const actions = document.createElement("div");
   actions.classList.add("dialog-actions");
   const saveButton = createDialogAction("Save", addProject);
-  const closeButton = createDialogAction("Close", closeDialog(dialog));
+  const closeButton = createDialogAction("Close", () =>
+    closeDialog(addProjectDialog)
+  );
   closeButton.type = "button";
   actions.append(saveButton, closeButton);
 
   const dialogBody = createDialogBody(formColumn, actions);
   const dialog = createDialog("Add new project", dialogBody);
+  return dialog;
+}
 
-  dialog.showModal();
+function addProject() {
+  const formInput = formColumn.querySelector(`#${formInputID}`);
+  if (!formInput.value) return;
 
-  function addProject() {
-    const formInput = formColumn.querySelector(`#${formInputID}`);
-    if (!formInput.value) return;
-
-    const newProject = new Project(formInput.value);
-    changeProject(newProject);
-  }
+  const newProject = new Project(formInput.value);
+  changeProject(newProject);
 }
 
 export function createNewProject(project) {

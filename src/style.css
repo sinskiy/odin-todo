@@ -121,6 +121,11 @@ main {
   gap: 0.25rem;
 }
 
+.form-inputs {
+  display: grid;
+  gap: 1rem;
+}
+
 .styled-button {
   height: fit-content;
   padding: 0.75rem 4rem;

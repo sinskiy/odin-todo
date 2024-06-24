@@ -46,12 +46,9 @@ export function createNewTodo(todo) {
 
     title.textContent = todo.title;
 
-    const description = document.createElement("p");
-    description.textContent = todo.description;
-
     date.textContent = new Date(todo.date).toDateString();
 
-    hgroup.append(title, description, date);
+    hgroup.append(title, date);
     return hgroup;
   }
 
@@ -87,12 +84,20 @@ export function createNewTodo(todo) {
     }
 
     function createEditDialog() {
-      const formColumn = createFormColumn(
+      const inputs = document.createElement("div");
+      inputs.classList.add("form-inputs");
+      const titleFormColumn = createFormColumn(
         "Title",
         "edit-title",
         "Buy groceries"
       );
-      formColumn.classList.add("form-column");
+      const descriptionFormColumn = createFormColumn(
+        "Description",
+        "edit-description",
+        "This is a hard task",
+        false
+      );
+      inputs.append(titleFormColumn, descriptionFormColumn);
 
       const actions = document.createElement("div");
       actions.classList.add("dialog-actions");
@@ -104,7 +109,7 @@ export function createNewTodo(todo) {
       actions.append(saveButton, closeButton);
 
       const dialogBody = createDialogBody(
-        formColumn,
+        inputs,
         actions,
         handleSubmitEditDialog
       );
@@ -115,8 +120,9 @@ export function createNewTodo(todo) {
 
       function handleSubmitEditDialog() {
         const formData = new FormData(dialogBody);
-        const [newTitle] = formData.values();
+        const [newTitle, newDescription] = formData.values();
         todo.setTitle(newTitle);
+        todo.setDescription(newDescription);
         title.textContent = newTitle;
       }
     }
@@ -126,6 +132,9 @@ export function createNewTodo(todo) {
 
       const title = editDialog.querySelector("#edit-title");
       title.value = todo.title;
+
+      const description = editDialog.querySelector("#edit-description");
+      description.value = todo.description ?? "";
     }
 
     function handleCalendarChange(e) {

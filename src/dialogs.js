@@ -18,12 +18,13 @@ export function createDialogBody(inputs, actions, submitHandler) {
   return form;
 }
 
-export function createFormColumn(label, id, placeholder) {
+export function createFormColumn(label, id, placeholder, required = true) {
   const formColumn = document.createElement("div");
   formColumn.classList.add("form-column");
 
   const columnLabel = document.createElement("label");
-  columnLabel.innerHTML = label + '<span aria-label="required">*</span>';
+  columnLabel.innerHTML =
+    label + (required ? '<span aria-label="required">*</span>' : "");
   columnLabel.setAttribute("for", id);
 
   const input = document.createElement("input");
@@ -31,7 +32,7 @@ export function createFormColumn(label, id, placeholder) {
   input.id = id;
   input.name = id;
   input.placeholder = placeholder;
-  input.required = true;
+  input.required = required;
 
   formColumn.append(columnLabel, input);
 

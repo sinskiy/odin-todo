@@ -1,1 +1,66 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Todo List | The Odin Project</title><script defer="defer" src="main.js"></script></head><body></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List | The Odin Project</title>
+  <script defer src="main.js"></script></head>
+  <body>
+    <main>
+      <section class="projects">
+        <ul class="projects-list">
+          <!-- <li class="hidden-input--parent">
+            <input type="radio" name="projects" id="default" checked />
+            <label for="default">Default</label>
+          </li>
+          <li class="hidden-input--parent">
+            <input type="radio" name="projects" id="code" />
+            <label for="code">Code</label>
+          </li>
+          <li class="hidden-input--parent">
+            <input type="radio" name="projects" id="life" />
+            <label for="life">Life</label>
+          </li> -->
+        </ul>
+        <button class="styled-button add-project">Add project</button>
+      </section>
+      <form action="" method="get" class="add-todo">
+        <div class="form-column">
+          <label for="add-todo-input"
+            >New todo title<span aria-label="required">*</span></label
+          >
+          <input
+            placeholder="Buy groceries"
+            required
+            class="styled-input"
+            type="text"
+            name="add-todo-input"
+            id="add-todo-input"
+          />
+        </div>
+        <button class="styled-button">Add</button>
+      </form>
+      <ul class="todos-list">
+        <!-- <li class="priority-1">
+          <input type="checkbox" />
+          <hgroup>
+            <h2 contenteditable="">Finish Todo</h2>
+            <p contenteditable="">Description of the task</p>
+            <small>June 27</small>
+          </hgroup>
+          <div class="actions">
+            <button class="icon-button">
+              <img src="./trash.svg" alt="trash icon" />
+            </button>
+            <button class="icon-button">
+              <img src="./calendar.svg" alt="calendar icon" />
+            </button>
+             <button class="icon-button">
+              <img src="./priority.svg" alt="priority icon" />
+            </button>
+          </div>
+        </li> -->
+      </ul>
+    </main>
+  </body>
+</html>

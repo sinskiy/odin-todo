@@ -1,3 +1,5 @@
+import { saveProjects } from "./projects";
+
 export default class Todo {
   constructor(title) {
     this.title = title;
@@ -5,5 +7,7 @@ export default class Todo {
   }
   toggleTodoCompleteness() {
     this.completed = !this.completed;
+
+    saveProjects();
   }
 }

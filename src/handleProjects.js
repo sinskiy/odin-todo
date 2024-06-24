@@ -26,7 +26,7 @@ export function handleCreateDialog() {
   const actions = document.createElement("div");
   actions.classList.add("dialog-actions");
   const saveButton = createDialogAction("Save", addProject);
-  const closeButton = createDialogAction("Close");
+  const closeButton = createDialogAction("Close", () => dialog.close());
   actions.append(saveButton, closeButton);
 
   const dialogBody = createDialogBody(formColumn, actions);
@@ -38,7 +38,6 @@ export function handleCreateDialog() {
     dialog.close();
 
     const formInput = formColumn.querySelector(`#${formInputID}`);
-    console.log(formInput);
 
     const newProject = new Project(formInput.value);
     changeProject(newProject);
@@ -69,7 +68,7 @@ export function createNewProject(project) {
   }
 }
 
-function changeProject(project) {
+export function changeProject(project) {
   setCurrentProjectID(project.id);
 
   todosList.innerHTML = "";

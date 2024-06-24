@@ -11,6 +11,7 @@ export default function handleFirstLoad() {
       project.todos.forEach((todo) => {
         const newTodo = new Todo(todo.title);
         newTodo.completed = todo.completed;
+        newTodo.date = todo.date;
         newProject.addTodo(newTodo);
       });
       changeProject(newProject);

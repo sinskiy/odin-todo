@@ -10,4 +10,9 @@ export default class Todo {
 
     saveProjects();
   }
+  setDate(date) {
+    this.date = date;
+
+    saveProjects();
+  }
 }

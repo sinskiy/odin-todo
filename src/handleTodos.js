@@ -24,6 +24,7 @@ export function createNewTodo(todo) {
   checkbox.checked = todo.completed;
   checkbox.addEventListener("change", () => todo.toggleTodoCompleteness());
 
+  const date = document.createElement("time");
   const details = createDetails();
 
   const actions = createActions();
@@ -40,7 +41,9 @@ export function createNewTodo(todo) {
     const description = document.createElement("p");
     description.textContent = todo.description;
 
-    hgroup.append(title, description);
+    date.textContent = new Date(todo.date).toDateString();
+
+    hgroup.append(title, description, date);
     return hgroup;
   }
 
@@ -53,9 +56,9 @@ export function createNewTodo(todo) {
     );
     const calendar = document.createElement("input");
     calendar.setAttribute("type", "date");
-    calendar.value = todo.dateTime;
+    calendar.value = todo.date;
     calendar.classList.add("styled-input");
-    // calendar.addEventListener("change", handleCalendarChange);
+    calendar.addEventListener("change", handleCalendarChange);
 
     actions.append(deleteButton, calendar);
     return actions;
@@ -74,9 +77,9 @@ export function createNewTodo(todo) {
     }
 
     function handleCalendarChange(e) {
-      const dateTime = e.target.value;
-      todo.setDateTime(dateTime);
-      details.children[2].innerText = new Date(todo.dateTime).toDateString();
+      const newDate = e.target.value;
+      todo.setDate(newDate);
+      date.innerText = new Date(todo.date).toDateString();
     }
   }
 }

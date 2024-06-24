@@ -46,7 +46,7 @@ export function createNewTodo(todo) {
 
     title.textContent = todo.title;
 
-    date.textContent = new Date(todo.date).toDateString();
+    date.textContent = todo.date ? new Date(todo.date).toDateString() : "";
 
     hgroup.append(title, date);
     return hgroup;
@@ -140,7 +140,7 @@ export function createNewTodo(todo) {
     function handleCalendarChange(e) {
       const newDate = e.target.value;
       todo.setDate(newDate);
-      date.innerText = new Date(todo.date).toDateString();
+      date.innerText = todo.date ? new Date(todo.date).toDateString() : "";
     }
   }
 }

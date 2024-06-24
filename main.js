@@ -169,6 +169,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `:root {
   --background: #15130b;
   --surface: #222017;
   --surface-high: #2d2a21;
+  --surface-highest: #38352b;
   --outline: #969080;
   --text: #e8e2d4;
   --text-secondary: #cdc6b4;
@@ -244,8 +245,11 @@ main {
   width: 2rem;
   height: 100%;
 }
-.todos-list .priority-1 {
+.todos-list [data-priority="2"] {
   background-color: var(--surface-high);
+}
+.todos-list [data-priority="1"] {
+  background-color: var(--surface-highest);
 }
 .todos-list .actions {
   display: flex;
@@ -284,6 +288,11 @@ main {
 .form-column {
   display: grid;
   gap: 0.25rem;
+}
+
+.form-inputs {
+  display: grid;
+  gap: 1rem;
 }
 
 .styled-button {
@@ -334,7 +343,7 @@ dialog .dialog-actions {
   display: flex;
   gap: 0.5rem;
 }
-`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,kBAAkB;;EAElB,qBAAqB;EACrB,kBAAkB;EAClB,uBAAuB;EACvB,kBAAkB;EAClB,eAAe;EACf,yBAAyB;EACzB,kBAAkB;EAClB,4BAA4B;EAC5B,qBAAqB;;EAErB,qBAAqB;EACrB,sBAAsB;EACtB,uBAAuB;AACzB;;AAEA;EACE,gBAAgB;;EAEhB,aAAa;EACb,qBAAqB;;EAErB,mCAAmC;EACnC,kBAAkB;AACpB;;AAEA;EACE,cAAc;EACd,gBAAgB;;EAEhB,aAAa;EACb,SAAS;AACX;;AAEA;EACE,aAAa;EACb,SAAS;AACX;AACA;EACE,aAAa;EACb,SAAS;EACT,OAAO;AACT;AACA;EACE,OAAO;EACP,kBAAkB;AACpB;AACA;EACE,cAAc;;EAEd,qBAAqB;;EAErB,gCAAgC;EAChC,mCAAmC;AACrC;AACA;EACE,gCAAgC;EAChC,wBAAwB;AAC1B;;AAEA;EACE,aAAa;EACb,SAAS;AACX;AACA;EACE,kBAAkB;;EAElB,aAAa;EACb,oCAAoC;EACpC,SAAS;EACT,mBAAmB;;EAEnB,gCAAgC;EAChC,kCAAkC;AACpC;AACA;EACE,WAAW;EACX,YAAY;AACd;AACA;EACE,qCAAqC;AACvC;AACA;EACE,aAAa;EACb,SAAS;EACT,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,0BAA0B;EAC1B,sBAAsB;EACtB,gBAAgB;EAChB,WAAW;AACb;AACA;EACE,2CAA2C;EAC3C,cAAc;AAChB;;AAEA;EACE,oBAAoB;EACpB,gCAAgC;;EAEhC,gCAAgC;EAChC,4BAA4B;EAC5B,mCAAmC;EACnC,aAAa;;EAEb,iBAAiB;AACnB;AACA;EACE,4BAA4B;AAC9B;;AAEA;EACE,aAAa;EACb,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,qBAAqB;EACrB,YAAY;;EAEZ,gCAAgC;EAChC,wBAAwB;EACxB,mCAAmC;;EAEnC,mBAAmB;EACnB,gBAAgB;AAClB;;AAEA;EACE,YAAY;EACZ,WAAW;EACX,gCAAgC;;EAEhC,aAAa;EACb,uBAAuB;EACvB,mBAAmB;;EAEnB,gCAAgC;EAChC,kBAAkB;EAClB,mCAAmC;AACrC;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,YAAY;;EAEZ,aAAa;;EAEb,kCAAkC;AACpC;;AAEA;EACE,aAAa;EACb,WAAW;AACb;;AAEA;EACE,gBAAgB;;EAEhB,aAAa;EACb,WAAW;AACb","sourcesContent":[":root {\n  color-scheme: dark;\n\n  --background: #15130b;\n  --surface: #222017;\n  --surface-high: #2d2a21;\n  --outline: #969080;\n  --text: #e8e2d4;\n  --text-secondary: #cdc6b4;\n  --primary: #dbc66e;\n  accent-color: var(--primary);\n  --on-primary: #3a3000;\n\n  --rounded-small: 1rem;\n  --rounded-card: 1.5rem;\n  --rounded-large: 9999px;\n}\n\nbody {\n  margin-top: 6rem;\n\n  display: grid;\n  justify-items: center;\n\n  background-color: var(--background);\n  color: var(--text);\n}\n\nmain {\n  min-width: 50%;\n  max-width: 32rem;\n\n  display: grid;\n  gap: 3rem;\n}\n\n.projects {\n  display: flex;\n  gap: 1rem;\n}\n.projects-list {\n  display: flex;\n  gap: 1rem;\n  flex: 1;\n}\n.projects li {\n  flex: 1;\n  text-align: center;\n}\n.projects label {\n  display: block;\n\n  padding: 0.75rem 3rem;\n\n  background-color: var(--surface);\n  border-radius: var(--rounded-small);\n}\n.projects :checked ~ label {\n  background-color: var(--primary);\n  color: var(--on-primary);\n}\n\n.todos-list {\n  display: grid;\n  gap: 1rem;\n}\n.todos-list li {\n  padding: 2rem 3rem;\n\n  display: grid;\n  grid-template-columns: auto 1fr auto;\n  gap: 2rem;\n  align-items: center;\n\n  background-color: var(--surface);\n  border-radius: var(--rounded-card);\n}\n.todos-list input[type=\"checkbox\"] {\n  width: 2rem;\n  height: 100%;\n}\n.todos-list .priority-1 {\n  background-color: var(--surface-high);\n}\n.todos-list .actions {\n  display: flex;\n  gap: 1rem;\n  justify-content: center;\n  align-items: center;\n}\n\n.add-todo {\n  display: grid;\n  grid-template-columns: 1fr;\n  grid-auto-flow: column;\n  align-items: end;\n  gap: 0.5rem;\n}\n.add-todo button {\n  /* input's height so that it looks better */\n  height: 3.5rem;\n}\n\n.styled-input {\n  padding: 0.5rem 1rem;\n  border: 1px solid var(--outline);\n\n  background-color: var(--surface);\n  color: var(--text-secondary);\n  border-radius: var(--rounded-small);\n  outline: none;\n\n  font-size: 1.5rem;\n}\n.styled-input:focus {\n  border-color: var(--primary);\n}\n\n.form-column {\n  display: grid;\n  gap: 0.25rem;\n}\n\n.styled-button {\n  height: fit-content;\n  padding: 0.75rem 4rem;\n  border: none;\n\n  background-color: var(--primary);\n  color: var(--on-primary);\n  border-radius: var(--rounded-large);\n\n  font-size: 0.875rem;\n  font-weight: 500;\n}\n\n.icon-button {\n  height: 3rem;\n  width: 3rem;\n  border: 1px solid var(--outline);\n\n  display: flex;\n  justify-content: center;\n  align-items: center;\n\n  background-color: var(--surface);\n  color: var(--text);\n  border-radius: var(--rounded-large);\n}\n\ndialog[open] {\n  border: none;\n  padding: 2rem;\n  margin: auto;\n\n  display: grid;\n\n  border-radius: var(--rounded-card);\n}\n\ndialog form {\n  display: grid;\n  gap: 0.5rem;\n}\n\ndialog .dialog-actions {\n  margin-top: 1rem;\n\n  display: flex;\n  gap: 0.5rem;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,kBAAkB;;EAElB,qBAAqB;EACrB,kBAAkB;EAClB,uBAAuB;EACvB,0BAA0B;EAC1B,kBAAkB;EAClB,eAAe;EACf,yBAAyB;EACzB,kBAAkB;EAClB,4BAA4B;EAC5B,qBAAqB;;EAErB,qBAAqB;EACrB,sBAAsB;EACtB,uBAAuB;AACzB;;AAEA;EACE,gBAAgB;;EAEhB,aAAa;EACb,qBAAqB;;EAErB,mCAAmC;EACnC,kBAAkB;AACpB;;AAEA;EACE,cAAc;EACd,gBAAgB;;EAEhB,aAAa;EACb,SAAS;AACX;;AAEA;EACE,aAAa;EACb,SAAS;AACX;AACA;EACE,aAAa;EACb,SAAS;EACT,OAAO;AACT;AACA;EACE,OAAO;EACP,kBAAkB;AACpB;AACA;EACE,cAAc;;EAEd,qBAAqB;;EAErB,gCAAgC;EAChC,mCAAmC;AACrC;AACA;EACE,gCAAgC;EAChC,wBAAwB;AAC1B;;AAEA;EACE,aAAa;EACb,SAAS;AACX;AACA;EACE,kBAAkB;;EAElB,aAAa;EACb,oCAAoC;EACpC,SAAS;EACT,mBAAmB;;EAEnB,gCAAgC;EAChC,kCAAkC;AACpC;AACA;EACE,WAAW;EACX,YAAY;AACd;AACA;EACE,qCAAqC;AACvC;AACA;EACE,wCAAwC;AAC1C;AACA;EACE,aAAa;EACb,SAAS;EACT,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,0BAA0B;EAC1B,sBAAsB;EACtB,gBAAgB;EAChB,WAAW;AACb;AACA;EACE,2CAA2C;EAC3C,cAAc;AAChB;;AAEA;EACE,oBAAoB;EACpB,gCAAgC;;EAEhC,gCAAgC;EAChC,4BAA4B;EAC5B,mCAAmC;EACnC,aAAa;;EAEb,iBAAiB;AACnB;AACA;EACE,4BAA4B;AAC9B;;AAEA;EACE,aAAa;EACb,YAAY;AACd;;AAEA;EACE,aAAa;EACb,SAAS;AACX;;AAEA;EACE,mBAAmB;EACnB,qBAAqB;EACrB,YAAY;;EAEZ,gCAAgC;EAChC,wBAAwB;EACxB,mCAAmC;;EAEnC,mBAAmB;EACnB,gBAAgB;AAClB;;AAEA;EACE,YAAY;EACZ,WAAW;EACX,gCAAgC;;EAEhC,aAAa;EACb,uBAAuB;EACvB,mBAAmB;;EAEnB,gCAAgC;EAChC,kBAAkB;EAClB,mCAAmC;AACrC;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,YAAY;;EAEZ,aAAa;;EAEb,kCAAkC;AACpC;;AAEA;EACE,aAAa;EACb,WAAW;AACb;;AAEA;EACE,gBAAgB;;EAEhB,aAAa;EACb,WAAW;AACb","sourcesContent":[":root {\n  color-scheme: dark;\n\n  --background: #15130b;\n  --surface: #222017;\n  --surface-high: #2d2a21;\n  --surface-highest: #38352b;\n  --outline: #969080;\n  --text: #e8e2d4;\n  --text-secondary: #cdc6b4;\n  --primary: #dbc66e;\n  accent-color: var(--primary);\n  --on-primary: #3a3000;\n\n  --rounded-small: 1rem;\n  --rounded-card: 1.5rem;\n  --rounded-large: 9999px;\n}\n\nbody {\n  margin-top: 6rem;\n\n  display: grid;\n  justify-items: center;\n\n  background-color: var(--background);\n  color: var(--text);\n}\n\nmain {\n  min-width: 50%;\n  max-width: 32rem;\n\n  display: grid;\n  gap: 3rem;\n}\n\n.projects {\n  display: flex;\n  gap: 1rem;\n}\n.projects-list {\n  display: flex;\n  gap: 1rem;\n  flex: 1;\n}\n.projects li {\n  flex: 1;\n  text-align: center;\n}\n.projects label {\n  display: block;\n\n  padding: 0.75rem 3rem;\n\n  background-color: var(--surface);\n  border-radius: var(--rounded-small);\n}\n.projects :checked ~ label {\n  background-color: var(--primary);\n  color: var(--on-primary);\n}\n\n.todos-list {\n  display: grid;\n  gap: 1rem;\n}\n.todos-list li {\n  padding: 2rem 3rem;\n\n  display: grid;\n  grid-template-columns: auto 1fr auto;\n  gap: 2rem;\n  align-items: center;\n\n  background-color: var(--surface);\n  border-radius: var(--rounded-card);\n}\n.todos-list input[type=\"checkbox\"] {\n  width: 2rem;\n  height: 100%;\n}\n.todos-list [data-priority=\"2\"] {\n  background-color: var(--surface-high);\n}\n.todos-list [data-priority=\"1\"] {\n  background-color: var(--surface-highest);\n}\n.todos-list .actions {\n  display: flex;\n  gap: 1rem;\n  justify-content: center;\n  align-items: center;\n}\n\n.add-todo {\n  display: grid;\n  grid-template-columns: 1fr;\n  grid-auto-flow: column;\n  align-items: end;\n  gap: 0.5rem;\n}\n.add-todo button {\n  /* input's height so that it looks better */\n  height: 3.5rem;\n}\n\n.styled-input {\n  padding: 0.5rem 1rem;\n  border: 1px solid var(--outline);\n\n  background-color: var(--surface);\n  color: var(--text-secondary);\n  border-radius: var(--rounded-small);\n  outline: none;\n\n  font-size: 1.5rem;\n}\n.styled-input:focus {\n  border-color: var(--primary);\n}\n\n.form-column {\n  display: grid;\n  gap: 0.25rem;\n}\n\n.form-inputs {\n  display: grid;\n  gap: 1rem;\n}\n\n.styled-button {\n  height: fit-content;\n  padding: 0.75rem 4rem;\n  border: none;\n\n  background-color: var(--primary);\n  color: var(--on-primary);\n  border-radius: var(--rounded-large);\n\n  font-size: 0.875rem;\n  font-weight: 500;\n}\n\n.icon-button {\n  height: 3rem;\n  width: 3rem;\n  border: 1px solid var(--outline);\n\n  display: flex;\n  justify-content: center;\n  align-items: center;\n\n  background-color: var(--surface);\n  color: var(--text);\n  border-radius: var(--rounded-large);\n}\n\ndialog[open] {\n  border: none;\n  padding: 2rem;\n  margin: auto;\n\n  display: grid;\n\n  border-radius: var(--rounded-card);\n}\n\ndialog form {\n  display: grid;\n  gap: 0.5rem;\n}\n\ndialog .dialog-actions {\n  margin-top: 1rem;\n\n  display: flex;\n  gap: 0.5rem;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -969,12 +978,13 @@ function createDialogBody(inputs, actions, submitHandler) {
   return form;
 }
 
-function createFormColumn(label, id, placeholder) {
+function createFormColumn(label, id, placeholder, required = true) {
   const formColumn = document.createElement("div");
   formColumn.classList.add("form-column");
 
   const columnLabel = document.createElement("label");
-  columnLabel.innerHTML = label + '<span aria-label="required">*</span>';
+  columnLabel.innerHTML =
+    label + (required ? '<span aria-label="required">*</span>' : "");
   columnLabel.setAttribute("for", id);
 
   const input = document.createElement("input");
@@ -982,7 +992,7 @@ function createFormColumn(label, id, placeholder) {
   input.id = id;
   input.name = id;
   input.placeholder = placeholder;
-  input.required = true;
+  input.required = required;
 
   formColumn.append(columnLabel, input);
 
@@ -1030,7 +1040,9 @@ function handleFirstLoad() {
       project.todos.forEach((todo) => {
         const newTodo = new _todos__WEBPACK_IMPORTED_MODULE_2__["default"](todo.title);
         newTodo.completed = todo.completed;
+        newTodo.description = todo.description;
         newTodo.date = todo.date;
+        newTodo.priority = todo.priority;
         newProject.addTodo(newTodo);
       });
       (0,_handleProjects__WEBPACK_IMPORTED_MODULE_0__.changeProject)(newProject);
@@ -1052,8 +1064,7 @@ function handleFirstLoad() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   changeProject: () => (/* binding */ changeProject),
-/* harmony export */   createNewProject: () => (/* binding */ createNewProject),
-/* harmony export */   handleCreateDialog: () => (/* binding */ handleCreateDialog)
+/* harmony export */   createNewProject: () => (/* binding */ createNewProject)
 /* harmony export */ });
 /* harmony import */ var _handleTodos__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./handleTodos */ "./src/handleTodos.js");
 /* harmony import */ var _projects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./projects */ "./src/projects.js");
@@ -1064,32 +1075,40 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const projectsList = document.querySelector(".projects-list");
+
+const formInputID = "add-project-title";
+const formColumn = (0,_dialogs__WEBPACK_IMPORTED_MODULE_2__.createFormColumn)("New project title", formInputID, "Life");
+
+const addProjectDialog = createAddProjectDialog();
+
 const addProjectDialogTrigger = document.querySelector(".add-project");
-addProjectDialogTrigger.addEventListener("click", handleCreateDialog);
+addProjectDialogTrigger.addEventListener("click", () =>
+  addProjectDialog.showModal()
+);
 
-function handleCreateDialog() {
-  const formInputID = "add-project-title";
-  const formColumn = (0,_dialogs__WEBPACK_IMPORTED_MODULE_2__.createFormColumn)("New project title", formInputID, "Life");
-
+function createAddProjectDialog() {
   const actions = document.createElement("div");
   actions.classList.add("dialog-actions");
   const saveButton = (0,_dialogs__WEBPACK_IMPORTED_MODULE_2__.createDialogAction)("Save", addProject);
-  const closeButton = (0,_dialogs__WEBPACK_IMPORTED_MODULE_2__.createDialogAction)("Close", (0,_dialogs__WEBPACK_IMPORTED_MODULE_2__.closeDialog)(dialog));
+  const closeButton = (0,_dialogs__WEBPACK_IMPORTED_MODULE_2__.createDialogAction)("Close", () =>
+    actions.parentElement.parentElement.close()
+  );
   closeButton.type = "button";
   actions.append(saveButton, closeButton);
 
   const dialogBody = (0,_dialogs__WEBPACK_IMPORTED_MODULE_2__.createDialogBody)(formColumn, actions);
   const dialog = (0,_dialogs__WEBPACK_IMPORTED_MODULE_2__.createDialog)("Add new project", dialogBody);
+  return dialog;
+}
 
-  dialog.showModal();
+function addProject() {
+  const formInput = formColumn.querySelector(`#${formInputID}`);
+  if (!formInput.value) return;
 
-  function addProject() {
-    const formInput = formColumn.querySelector(`#${formInputID}`);
-    if (!formInput.value) return;
+  const newProject = new _projects__WEBPACK_IMPORTED_MODULE_1__.Project(formInput.value);
+  changeProject(newProject);
 
-    const newProject = new _projects__WEBPACK_IMPORTED_MODULE_1__.Project(formInput.value);
-    changeProject(newProject);
-  }
+  addProjectDialog.close();
 }
 
 function createNewProject(project) {
@@ -1168,6 +1187,7 @@ function handleAddTodo(e) {
 function createNewTodo(todo) {
   const todoItem = document.createElement("li");
   todoItem.dataset.id = todo.id;
+  todoItem.dataset.priority = todo.priority;
 
   const checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
@@ -1188,7 +1208,7 @@ function createNewTodo(todo) {
 
     title.textContent = todo.title;
 
-    date.textContent = new Date(todo.date).toDateString();
+    date.textContent = todo.date ? new Date(todo.date).toDateString() : "";
 
     hgroup.append(title, date);
     return hgroup;
@@ -1208,8 +1228,22 @@ function createNewTodo(todo) {
     calendar.value = todo.date;
     calendar.classList.add("styled-input");
     calendar.addEventListener("change", handleCalendarChange);
+    const priorities = document.createElement("select");
+    priorities.classList.add("styled-input");
+    priorities.addEventListener("change", handlePriorityChange);
+    priorities.style.fontSize = "1rem";
+    const prioritiesArr = [];
+    for (let i = 1; i <= 3; i++) {
+      const priority = document.createElement("option");
+      priority.value = i;
+      priority.innerText = `Priority ${i}`;
 
-    actions.append(deleteButton, editButton, calendar);
+      prioritiesArr.push(priority);
+    }
+    priorities.append(...prioritiesArr);
+    priorities.selectedIndex = todo.priority - 1;
+
+    actions.append(deleteButton, editButton, calendar, priorities);
     return actions;
 
     function createAction(src, alt, clickEventHandler) {
@@ -1227,6 +1261,7 @@ function createNewTodo(todo) {
 
     function createEditDialog() {
       const inputs = document.createElement("div");
+      inputs.classList.add("form-inputs");
       const titleFormColumn = (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.createFormColumn)(
         "Title",
         "edit-title",
@@ -1235,7 +1270,8 @@ function createNewTodo(todo) {
       const descriptionFormColumn = (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.createFormColumn)(
         "Description",
         "edit-description",
-        "This is a hard task"
+        "This is a hard task",
+        false
       );
       inputs.append(titleFormColumn, descriptionFormColumn);
 
@@ -1280,7 +1316,13 @@ function createNewTodo(todo) {
     function handleCalendarChange(e) {
       const newDate = e.target.value;
       todo.setDate(newDate);
-      date.innerText = new Date(todo.date).toDateString();
+      date.innerText = todo.date ? new Date(todo.date).toDateString() : "";
+    }
+
+    function handlePriorityChange(e) {
+      const newPriority = e.target.value;
+      todo.setPriority(newPriority);
+      todoItem.dataset.priority = newPriority;
     }
   }
 }
@@ -1406,6 +1448,7 @@ class Todo {
   constructor(title) {
     this.title = title;
     this.completed = false;
+    this.priority = 3;
   }
   setTitle(title) {
     this.title = title;
@@ -1424,6 +1467,11 @@ class Todo {
   }
   setDate(date) {
     this.date = date;
+
+    (0,_projects__WEBPACK_IMPORTED_MODULE_0__.saveProjects)();
+  }
+  setPriority(priority) {
+    this.priority = priority;
 
     (0,_projects__WEBPACK_IMPORTED_MODULE_0__.saveProjects)();
   }
